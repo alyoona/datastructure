@@ -1,6 +1,5 @@
-package com.yona.datastructure.abstracttest;
+package com.stroganova.datastructure.list;
 
-import com.yona.datastructure.list.List;
 import org.junit.*;
 
 import static org.junit.Assert.*;

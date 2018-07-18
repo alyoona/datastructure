@@ -1,4 +1,4 @@
-package com.yona.datastructure.map;
+package com.stroganova.datastructure.map;
 
 import org.junit.Before;
 import org.junit.Test;

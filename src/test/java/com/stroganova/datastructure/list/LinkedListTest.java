@@ -1,7 +1,4 @@
-package com.yona.datastructure.abstracttest;
-
-import com.yona.datastructure.list.LinkedList;
-import com.yona.datastructure.list.List;
+package com.stroganova.datastructure.list;
 
 public class LinkedListTest extends AbstractListTest {
    @Override

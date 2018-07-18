@@ -1,4 +1,4 @@
-package com.yona.datastructure.list;
+package com.stroganova.datastructure.list;
 
 import java.util.Iterator;
 import java.util.StringJoiner;

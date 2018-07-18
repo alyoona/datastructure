@@ -1,4 +1,4 @@
-package com.yona.datastructure.map;
+package com.stroganova.datastructure.map;
 
 public class HashMapTest extends AbstractMapTest {
     @Override

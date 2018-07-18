@@ -1,4 +1,4 @@
-package com.yona.datastructure.list;
+package com.stroganova.datastructure.list;
 
 public interface List<E> extends Iterable<E> {
     // add value to the end of the list
