@@ -13,9 +13,12 @@ public class ArrayList<E> implements List<E> {
         this(INITIAL_CAPACITY);
     }
 
+    /*An array can only contain elements that have been added or set by add(E) or set(E) methods respectively.*/
+    @SuppressWarnings("unchecked")
     public ArrayList(int capacity) {
         array = (E[]) new Object[capacity];
     }
+
 
     public void add(E value) {
         add(value, size);
@@ -131,7 +134,7 @@ public class ArrayList<E> implements List<E> {
         }
     }
 
-    public  Iterator<E> iterator() {
+    public Iterator<E> iterator() {
         return new MyIterator();
     }
 

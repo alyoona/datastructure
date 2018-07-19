@@ -74,7 +74,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public void clear() {
-        for(Node<E> current = head; current != null; ) {
+        for (Node<E> current = head; current != null; ) {
             Node<E> next = current.next;
             current.value = null;
             current.next = null;
@@ -137,16 +137,6 @@ public class LinkedList<E> implements List<E> {
         return size == 0;
     }
 
-    public String toString() {
-        StringJoiner stringJoiner = new StringJoiner(",", "[", "]");
-        Node current = head;
-        while (current != null) {
-            stringJoiner.add(String.valueOf(current.value));
-            current = current.next;
-        }
-        return stringJoiner.toString();
-    }
-
     private void validateIndexForAdd(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index is " + index + ". For adding the index should be between 0 and " + size + "(inclusive).");
@@ -160,7 +150,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     private Node<E> getNode(int index) {
-        if (index < (size >> 1)) {
+        if (index < (size / 2)) {
             Node<E> current = head;
             for (int i = 0; i < index; i++) {
                 current = current.next;
@@ -201,5 +191,15 @@ public class LinkedList<E> implements List<E> {
             current = current.next;
             return result;
         }
+    }
+
+    public String toString() {
+        StringJoiner stringJoiner = new StringJoiner(",", "[", "]");
+        Node current = head;
+        while (current != null) {
+            stringJoiner.add(String.valueOf(current.value));
+            current = current.next;
+        }
+        return stringJoiner.toString();
     }
 }

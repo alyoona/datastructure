@@ -3,6 +3,7 @@ package com.stroganova.datastructure.list;
 import org.junit.*;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractListTest {
 
@@ -230,7 +231,7 @@ public abstract class AbstractListTest {
     @Test
     public void testRemoveFirst() {
         assertEquals(3, list.size());
-        list.remove(0);
+        assertEquals("str1", list.remove(0));
         assertEquals("str2", list.get(0));
         assertEquals("str3", list.get(1));
         assertEquals(2, list.size());
@@ -239,7 +240,7 @@ public abstract class AbstractListTest {
     @Test
     public void testRemoveCenter() {
         assertEquals(3, list.size());
-        list.remove(1);
+        assertEquals("str2", list.remove(1));
         assertEquals("str1", list.get(0));
         assertEquals("str3", list.get(1));
         assertEquals(2, list.size());
@@ -248,7 +249,7 @@ public abstract class AbstractListTest {
     @Test
     public void testRemoveLast() {
         assertEquals(3, list.size());
-        list.remove(2);
+        assertEquals("str3", list.remove(2));
         assertEquals("str1", list.get(0));
         assertEquals("str2", list.get(1));
         assertEquals(2, list.size());
@@ -394,11 +395,21 @@ public abstract class AbstractListTest {
 
     @Test
     public void testIterator() {
+
+        String[] expected = {"str1","str2","str3"};
+        int index = 0;
+        for(String value : list) {
+            assertEquals(expected[index], value);
+            index++;
+        }
+
+        /*
         String actual = "";
         for (String s : list) {
             actual += String.valueOf(s);
         }
         assertEquals("str1str2str3", actual);
+        */
     }
 
 }
