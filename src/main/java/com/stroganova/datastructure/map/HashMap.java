@@ -19,25 +19,19 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K key, V value) {
-        return innerPut(key, value, buckets);
+        return innerPut(key, value);
     }
 
-    private V innerPut(K key, V value, List<Entry<K, V>>[] customBuckets) {
-        int bucketIndex = getIndex(key, customBuckets.length);
+    private V innerPut(K key, V value) {
+        int bucketIndex = getIndex(key);
 
-        if (customBuckets[bucketIndex] == null) {
-            customBuckets[bucketIndex] = new ArrayList<>();
+        if (buckets[bucketIndex] == null) {
+            buckets[bucketIndex] = new ArrayList<>();
         }
-
-        List<Entry<K, V>> innerBucket = customBuckets[bucketIndex];
+        List<Entry<K, V>> innerBucket = buckets[bucketIndex];
         Entry<K, V> entry = getEntry(key);
         V oldValue = null;
 
-
-        if (buckets.length < customBuckets.length) {
-            /*if growing:*/
-            innerBucket.add(entry);
-        } else {
             if (entry != null) {
                 oldValue = entry.value;
                 entry.value = value;
@@ -46,11 +40,10 @@ public class HashMap<K, V> implements Map<K, V> {
                 size++;
             }
 
-            if (size > customBuckets.length * LOAD_FACTOR) {
+            if (size > buckets.length * LOAD_FACTOR) {
                 grow();
             }
 
-        }
         return oldValue;
     }
 
@@ -81,7 +74,7 @@ public class HashMap<K, V> implements Map<K, V> {
 
     @Override
     public V remove(K key) {
-        int index = getIndex(key, buckets.length);
+        int index = getIndex(key);
         ArrayList<Entry<K, V>> innerBucket = buckets[index];
         if (innerBucket != null) {
             for (Iterator<Entry<K, V>> iterator = innerBucket.iterator(); iterator.hasNext(); ) {
@@ -107,25 +100,30 @@ public class HashMap<K, V> implements Map<K, V> {
         return getEntry(key) != null;
     }
 
-    private int getIndex(K key, int bucketsLength) {
+    private int getIndex(K key) {
         int index = 0;
         if (key != null) {
-            index = Math.abs(key.hashCode() % bucketsLength);
+            index = Math.abs(key.hashCode() % buckets.length);
         }
         return index;
     }
 
     @SuppressWarnings("unchecked")
     private void grow() {
-        ArrayList<Entry<K, V>>[] newBuckets = new ArrayList[buckets.length * 2 + 1];
-        for (Entry<K, V> kvEntry : this) {
-            innerPut(kvEntry.key, kvEntry.value, newBuckets);
+        ArrayList<Entry<K, V>>[] oldBuckets = buckets;
+        buckets = new ArrayList[buckets.length * 2 + 1];
+        size = 0;
+        for (ArrayList<Entry<K, V>> kvEntry : oldBuckets) {
+            if(kvEntry != null) {
+                for(Entry<K, V> entry : kvEntry) {
+                    innerPut(entry.key, entry.value);
+                }
+            }
         }
-        buckets = newBuckets;
     }
 
     private Entry<K, V> getEntry(K key) {
-        int index = getIndex(key, buckets.length);
+        int index = getIndex(key);
         ArrayList<Entry<K, V>> innerBucket = buckets[index];
         if (innerBucket != null) {
             for (Entry<K, V> entry : innerBucket) {
